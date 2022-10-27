@@ -1,0 +1,43 @@
+services:
+  backend:
+    build:
+      args:
+        USER: ${USER:-appuser}
+      context: ./backend
+    depends_on:
+      - postgres
+    environment:
+      - CACHE_URL
+      - DATABASE_URL
+      - DJANGO_ADMINS
+      - DJANGO_ALLOWED_HOSTS
+      - DJANGO_CONFIGURATION
+      - DJANGO_DEBUG
+      - DJANGO_DEFAULT_FROM_EMAIL
+      - DJANGO_SECRET_KEY
+      - DJANGO_SERVER_EMAIL
+      - DJANGO_SESSION_COOKIE_DOMAIN
+      - DJANGO_SUPERUSER_EMAIL
+      - DJANGO_SUPERUSER_PASSWORD
+      - DJANGO_SUPERUSER_USERNAME
+      - EMAIL_URL
+      - PACT_BROKER_URL
+      - PACT_PROVIDER_NAME
+      - PYTHONBREAKPOINT
+    user: ${USER:-appuser}
+    volumes:
+      - ./backend:/app
+    # command: "sleep infinity"
+    ports:
+      - 8000:8000
+
+  postgres:
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    image: postgres:14-bullseye
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data: {}
