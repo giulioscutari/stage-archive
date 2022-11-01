@@ -27,7 +27,7 @@ USER $APPUSER
 COPY --chown=$APPUSER ./requirements.txt requirements.txt
 RUN python3 -m pip install --user --no-cache-dir -r requirements.txt
 COPY --chown=$APPUSER . .
-ENV DJANGO_CONFIGURATION=Local INTERNAL_SERVICE_PORT=8000
 USER $APPUSER
 WORKDIR /app/archive
-CMD python3 -m manage runserver 0:8000
+ENTRYPOINT [ "./entrypoint.sh" ]
+CMD ["python3", "-m", "gunicorn", "archive.asgi"]
