@@ -1,4 +1,4 @@
+backend/
 rp-stage-logs/
 static/
 .coverage
-backend/.coverage
