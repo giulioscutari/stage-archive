@@ -9,7 +9,7 @@ services:
     user: ${USER:-appuser}
     volumes:
       - ./static:/app/static
-      - ./stage-archive-backend/.git:/app/.git
+      - ./stage-archive-backend/:/app/
     command:  "python3 -m manage runserver 0:8000"
     ports:
       - 8000:8000
