@@ -3,12 +3,12 @@ services:
     build:
       args:
         USER: ${USER:-appuser}
-      context: ./backend
+      context: ./stage-archive-backend
     depends_on:
       - postgres
     user: ${USER:-appuser}
     volumes:
-      - ./backend:/app
+      - ./stage-archive-backend:/app
       - ./static:/app/static
     command:  "python3 -m manage runserver 0:8000"
     ports:
