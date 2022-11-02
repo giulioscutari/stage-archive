@@ -1,3 +1,4 @@
 rp-stage-logs/
 static/
 .coverage
+stage-archive-backend/

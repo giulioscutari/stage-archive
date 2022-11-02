@@ -8,8 +8,8 @@ services:
       - postgres
     user: ${USER:-appuser}
     volumes:
-      - ./stage-archive-backend:/app
       - ./static:/app/static
+      - .git:/.git
     command:  "python3 -m manage runserver 0:8000"
     ports:
       - 8000:8000
