@@ -20,6 +20,9 @@ services:
       - frontend_code:/app/flutter_application
     ports:
       - 5000:5000
+    entrypoint: "/bin/bash -l"
+    tty: true
+    # command: "sleep infinity"
   postgres:
     environment:
       - POSTGRES_USER=postgres
@@ -27,7 +30,18 @@ services:
     image: postgres:14-bullseye
     volumes:
       - pg_data:/var/lib/postgresql/data
-
+  traefik:
+    image: traefik:v2.6
+    depends_on:
+      - backend
+      - frontend
+    volumes:
+      - ./traefik/:/traefik/:ro
+    command:
+      - "--configFile=/traefik/conf/static.yaml"
+    ports:
+      - "${LOCAL_HTTPS_PORT:-8443}:8443"
+      - "${TRAEFIK_DASHBOARD_PORT:-8080}:8080"
 volumes:
   pg_data: {}
   staticfiles: {}
